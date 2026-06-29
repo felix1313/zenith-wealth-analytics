@@ -1,0 +1,141 @@
+/* Modern HSL-Based Financial Design System */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Colors (HSL format for easy opacity blending) */
+  --bg-base: 224 16% 6%;         /* #0d0e12 */
+  --bg-surface: 223 14% 10%;     /* #15171e */
+  --bg-card: 223 14% 12%;        /* #191c25 */
+  
+  --color-border: 220 12% 16%;   /* #222530 */
+  --color-border-glow: 220 12% 25%;
+  
+  --text-primary: 210 20% 98%;   /* #f1f5f9 */
+  --text-secondary: 215 16% 68%; /* #94a3b8 */
+  --text-muted: 215 12% 45%;     /* #64748b */
+  
+  /* Brand accents */
+  --emerald: 142 76% 45%;        /* #10b981 (Yield / Success) */
+  --crimson: 343 82% 54%;        /* #f43f5e (Loss / Alert) */
+  --gold: 42 95% 53%;            /* #f59e0b (Treasury Assets) */
+  --cyan: 188 86% 53%;           /* #06b6d4 (Growth Indicators) */
+
+  /* Typography */
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Performance & Transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 12px 24px -4px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px -5px hsl(var(--emerald) / 0.2);
+}
+
+/* Global Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: hsl(var(--bg-base));
+  color: hsl(var(--text-primary));
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--bg-base));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-border));
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-border-glow));
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Typography elements */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: hsl(var(--text-primary));
+}
+
+p {
+  margin: 0;
+  color: hsl(var(--text-secondary));
+  line-height: 1.6;
+}
+
+/* Glassmorphism Panel styles */
+.glass-panel {
+  background: hsl(var(--bg-surface) / 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--color-border));
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: hsl(var(--color-border-glow));
+  box-shadow: var(--shadow-lg);
+}
+
+/* Utility Animations */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-bg {
+  background: linear-gradient(90deg, 
+    hsl(var(--bg-card)) 25%, 
+    hsl(var(--color-border)) 50%, 
+    hsl(var(--bg-card)) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes price-pulse-up {
+  0% { background-color: hsl(var(--emerald) / 0.2); }
+  100% { background-color: transparent; }
+}
+
+@keyframes price-pulse-down {
+  0% { background-color: hsl(var(--crimson) / 0.2); }
+  100% { background-color: transparent; }
+}
+
+.pulse-up {
+  animation: price-pulse-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pulse-down {
+  animation: price-pulse-down 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
